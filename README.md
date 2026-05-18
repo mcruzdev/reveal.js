@@ -19,7 +19,7 @@ Want to create reveal.js presentation in a graphical editor? Try <https://slides
 
 ### Slides
 
-[Quarkus Flow: Orquestrando complexidade e Agentes de IA](/quarkus-flow-workflow.html)
+[Quarkus Flow: Orquestrando complexidade e Agentes de IA](/quarkus-flow-workflow.pdf)
 
 ### Getting started
 
