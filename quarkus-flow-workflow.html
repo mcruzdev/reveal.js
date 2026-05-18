@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="utf-8" />
+
+	<title>Quarkus Flow: Orquestrando Complexidade e Agentes de IA</title>
+
+	<meta name="description" content="Apresentação sobre Quarkus Flow - Workflow Engine para Quarkus" />
+	<meta name="author" content="Matheus Cruz" />
+
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" href="dist/reset.css" />
+	<link rel="stylesheet" href="dist/reveal.css" />
+	<link rel="stylesheet" href="dist/theme/black.css" id="theme" />
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700;900&family=Red+Hat+Text:wght@400;500;700&display=swap');
+
+		.reveal {
+			font-family: 'Red Hat Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		}
+
+		.reveal h1,
+		.reveal h2,
+		.reveal h3,
+		.reveal h4,
+		.reveal h5,
+		.reveal h6 {
+			font-family: 'Red Hat Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			text-transform: none;
+			letter-spacing: -0.02em;
+		}
+
+		.reveal h1 {
+			font-weight: 900;
+			font-size: 2.5em;
+		}
+
+		.reveal h2 {
+			font-weight: 700;
+			font-size: 1.8em;
+		}
+
+		.reveal strong {
+			font-weight: 700;
+			color: #4695eb;
+		}
+
+		.reveal code {
+			font-family: 'Red Hat Mono', 'Courier New', monospace;
+		}
+
+		.two-columns {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 2rem;
+			align-items: start;
+		}
+
+		.two-columns>div {
+			height: 100%;
+		}
+
+		.code-comparison {
+			font-size: 0.5em;
+		}
+
+		.architecture-diagram {
+			background: rgba(255, 255, 255, 0.1);
+			padding: 2rem;
+			border-radius: 10px;
+		}
+
+		.flow-diagram {
+			background: rgba(255, 255, 255, 0.05);
+			padding: 1.5rem;
+			border-radius: 8px;
+			margin: 1rem 0;
+		}
+
+		.agent-type {
+			font-family: 'Red Hat Mono', monospace;
+			color: #4695eb;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Slide 1: Title -->
+			<section data-background-gradient="linear-gradient(to bottom, #1a1a2e, #16213e)">
+				<h1>Quarkus Flow</h1>
+				<h3>Orquestrando Complexidade e Agentes de IA</h3>
+				<p style="margin-top: 3rem">
+					<strong>Matheus Cruz</strong><br />
+				</p>
+				<aside class="notes">
+					Apresentação sobre Quarkus Flow, uma workflow engine para Quarkus que ajuda a orquestrar
+					complexidade e trabalhar com agentes de IA.
+				</aside>
+			</section>
+
+			<!-- Slide 2: Simple Beginning -->
+			<section>
+				<h2>Todo o sistema começa simples</h2>
+				<aside class="notes">
+					Todo sistema de software começa de forma simples e elegante.
+				</aside>
+			</section>
+
+			<!-- Slide 3: Basic Architecture -->
+			<section>
+				<h2>Um endpoint, um banco de dados e uma regra de negócio</h2>
+				<aside class="notes">
+					No início, temos apenas um endpoint, um banco de dados e uma regra de negócio simples.
+				</aside>
+			</section>
+
+			<!-- Slide 4: Reality Check -->
+			<section>
+				<h2>Mas o software nunca permanece simples…</h2>
+				<aside class="notes">
+					Mas a realidade é que o software nunca permanece simples por muito tempo.
+				</aside>
+			</section>
+
+			<!-- Slide 5: Inherent Complexity -->
+			<section>
+				<h2>"Complexidade inerente ao Software"</h2>
+				<blockquote style="font-size: 0.8em">
+					<p>
+						Existem muitas variáveis que se combinam, muitos estados diferentes a serem lidados.
+						Conforme o software cresce, atender a diferentes escalas de usuários introduz novos desafios.
+					</p>
+					<footer>— Brooks, Frederick. <cite>No Silver Bullet</cite></footer>
+				</blockquote>
+				<aside class="notes">
+					Frederick Brooks, em seu famoso artigo "No Silver Bullet", fala sobre a complexidade inerente ao
+					desenvolvimento de software.
+				</aside>
+			</section>
+
+			<!-- Slide 6a: The Inevitable - Thanos Image Centered -->
+			<section data-auto-animate>
+				<h2 data-id="inevitable-title">O inevitável</h2>
+				<div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+					<img data-id="thanos-img" src="images/thanos.png" alt="Thanos Inevitable"
+						style="max-width: 400px; border-radius: 10px;" />
+				</div>
+				<aside class="notes">
+					Como Thanos disse: "Eu sou inevitável". Assim como no filme, há coisas inevitáveis no
+					desenvolvimento de software.
+				</aside>
+			</section>
+
+			<!-- Slide 6b: The Inevitable - List with Image on Right -->
+			<section data-auto-animate>
+				<h2 data-id="inevitable-title">O inevitável</h2>
+				<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: center;">
+					<ul style="font-size: 0.9em;">
+						<li class="fragment">Retries</li>
+						<li class="fragment">Eventos</li>
+						<li class="fragment">Filas</li>
+						<li class="fragment">Timeout</li>
+						<li class="fragment">Compensação</li>
+						<li class="fragment">HITL (Human-in-the-loop)</li>
+						<li class="fragment">Integração com sistemas legados</li>
+					</ul>
+					<img data-id="thanos-img" src="images/thanos.png" alt="Thanos Inevitable"
+						style="max-width: 250px; border-radius: 10px;" />
+				</div>
+				<aside class="notes">
+					Conforme o sistema cresce, precisamos lidar com diversos desafios: retries, eventos, filas,
+					timeouts, compensação, interação humana e integração com sistemas legados.
+				</aside>
+			</section>
+
+			<!-- Slide 7: Hidden Workflow Engine Warning -->
+			<section>
+				<h2>Cuidado com o Workflow engine escondido</h2>
+				<ul style="font-size: 0.85em">
+					<li class="fragment">
+						Se você não tomar cuidado a lógica de coordenação vai, aos poucos, se espalhando por diversas
+						partes do seu código
+					</li>
+					<li class="fragment">
+						Com o tempo, a lógica de negócio e as preocupações de infraestrutura acabam ficando
+						profundamente acopladas
+					</li>
+					<li class="fragment">
+						O código fica mais difícil de receber manutenção e surge aquela frase: "Precisamos refatorar o
+						projeto"
+					</li>
+				</ul>
+				<aside class="notes">
+					Sem perceber, você acaba criando um workflow engine implícito no seu código, espalhado por várias
+					partes do sistema.
+				</aside>
+			</section>
+
+			<!-- Slide 8: Empty (placeholder for diagram) -->
+			<section data-background="images/big-ball-of-mud.jpg" data-background-size="contain">
+				<aside class="notes">
+					Slide de transição visual.
+				</aside>
+			</section>
+
+			<!-- Slide 9: Big Ball of Mud -->
+			<section data-background="images/big-ball-of-mud.jpg" data-background-size="contain">
+				<h2 style="background-color: rgba(0, 0, 0, 0.8); padding: 1rem; border-radius: 10px">
+					Grande bola de lama<br />(Big Ball of Mud)
+				</h2>
+				<aside class="notes">
+					O resultado é o anti-padrão conhecido como "Big Ball of Mud" - uma grande bola de lama onde tudo
+					está conectado a tudo.
+				</aside>
+			</section>
+
+
+			<!-- Slide 9b: Big Ball of Mud Code Example -->
+			<section>
+				<h2>Exemplo: Compensação na Grande Bola de Lama</h2>
+				<pre><code class="java" data-trim data-line-numbers="|1-6|8-18|20-35|37-52|54-70|72-78">
+public class OrderService {
+    @Inject RestClient stockClient;
+    @Inject RestClient paymentClient;
+    @Inject RestClient shippingClient;
+    @Inject EntityManager em;
+    @Inject Mailer mailer;
+
+    public void processOrder(Order order) {
+        try {
+            // Mutate order state - PENDING
+            order.setStatus("PENDING");
+            em.persist(order);
+            
+            // HTTP call to stock service
+            var stockResponse = stockClient.post("/api/stock/reserve")
+                .body(order.getItems()).invoke();
+            order.setStockReservationId(stockResponse.getId());
+            order.setStatus("STOCK_RESERVED");
+            em.merge(order);
+            
+            // HTTP call to payment service
+            var paymentResponse = paymentClient.post("/api/payment/process")
+                .header("X-Customer-Id", order.getCustomerId())
+                .body(Map.of("amount", order.getTotalAmount()))
+                .invoke();
+            
+            if (paymentResponse.getStatus() != 200) {
+                // Compensate: release stock via HTTP
+                stockClient.post("/api/stock/release")
+                    .body(order.getStockReservationId()).invoke();
+                order.setStatus("PAYMENT_FAILED");
+                em.merge(order);
+                mailer.send(order.getCustomerEmail(), "Payment failed");
+                throw new PaymentException("Payment failed");
+            }
+            
+            order.setPaymentId(paymentResponse.getPaymentId());
+            order.setStatus("PAYMENT_CONFIRMED");
+            em.merge(order);
+            
+            // HTTP call to shipping service
+            var shippingResponse = shippingClient.post("/api/shipping/schedule")
+                .body(Map.of("address", order.getShippingAddress(),
+                            "items", order.getItems()))
+                .invoke();
+            
+            if (shippingResponse.getStatus() != 200) {
+                // Compensate: refund payment via HTTP
+                paymentClient.post("/api/payment/refund")
+                    .body(order.getPaymentId()).invoke();
+                // Compensate: release stock via HTTP
+                stockClient.post("/api/stock/release")
+                    .body(order.getStockReservationId()).invoke();
+                order.setStatus("SHIPPING_FAILED");
+                em.merge(order);
+                mailer.send(order.getCustomerEmail(), "Shipping failed");
+                throw new ShippingException("Shipping failed");
+            }
+            
+            order.setShippingId(shippingResponse.getTrackingId());
+            order.setStatus("CONFIRMED");
+            em.merge(order);
+            mailer.send(order.getCustomerEmail(), "Order confirmed!");
+            
+        } catch (Exception e) {
+            // What if HTTP calls fail?
+            // What if compensation HTTP calls fail?
+            // What about network timeouts?
+            // What about partial failures?
+            // How to monitor this mess?
+            order.setStatus("ERROR");
+            em.merge(order);
+            log.error("Order processing failed", e);
+            throw new OrderProcessingException(e);
+        }
+    }
+}
+				</code></pre>
+				<aside class="notes">
+					Grande bola de lama: estado mutável do Order, lógica de negócio misturada com HTTP, compensação
+					manual via HTTP,
+					sem retries, sem circuit breaker, difícil de testar e manter. Tudo acoplado!
+				</aside>
+			</section>
+
+
+			<!-- Slide 10: Implicit Workflow Engine -->
+			<section>
+				<h2>Você acaba de forma implícita, criando um workflow engine manualmente</h2>
+				<aside class="notes">
+					Sem perceber, você criou um workflow engine de forma implícita e manual no seu código.
+				</aside>
+			</section>
+
+			<!-- Slide 11: Transition -->
+			<section>
+				<h2>E se a orquestração fosse explícita?</h2>
+				<aside class="notes">
+					E se pudéssemos tornar essa orquestração explícita e gerenciável?
+				</aside>
+			</section>
+
+			<!-- Slide 12: Quarkus Flow Introduction -->
+			<section data-background-gradient="linear-gradient(to bottom, #16213e, #0f3460)">
+				<img src="images/quarkus-logo.png">
+				<h1>Quarkus Flow</h1>
+				<aside class="notes">
+					Apresentando o Quarkus Flow - a solução para orquestração explícita de workflows.
+				</aside>
+			</section>
+
+			<!-- Slide 13: What is a Workflow -->
+			<section>
+				<h2>O que é um Workflow?</h2>
+				<blockquote style="font-size: 0.9em">
+					"A automação de um processo, onde os dados são passados de uma tarefa para outra para execução,
+					seguindo um conjunto de regras."
+				</blockquote>
+				<aside class="notes">
+					Um workflow é a automação de um processo onde dados fluem entre tarefas seguindo regras definidas.
+				</aside>
+			</section>
+
+			<section>
+				<h2>O que ele veio resolver?</h2>
+				<blockquote style="font-size: 0.9em">
+					Workflow surgiu para resolver a coordenação de processos complexos com múltiplas etapas, regras,
+					estados e integrações distribuídas.
+
+					Ele evita que fluxos de negócio fiquem espalhados em <code>if/else</code>, filas, cron jobs e
+					tabelas de controle difíceis de manter, monitorar e recuperar após falhas.
+				</blockquote>
+			</section>
+
+			<!-- Slide 14: Quarkus Flow Features -->
+			<section>
+				<h2>Quarkus Flow</h2>
+				<p style="font-size: 0.85em">Quarkus Flow é Workflow Engine para Quarkus:</p>
+				<ul style="font-size: 0.8em">
+					<li class="fragment">
+						Gerenciamento de estado, controle de fluxo, chamadas remotas, mensageria, resiliência,
+						observabilidade, etc.
+					</li>
+					<li class="fragment">
+						Permite Human-in-the-Loop (HITL) e Agentic patterns
+					</li>
+					<li class="fragment">
+						Permite a criação de workflows duráveis (Durable Workflows)
+					</li>
+					<li class="fragment">
+						Deixa sua lógica de negócio limpa e orquestra a complexidade para você
+					</li>
+				</ul>
+				<aside class="notes">
+					Quarkus Flow oferece gerenciamento completo de workflows com estado, resiliência, observabilidade e
+					suporte a padrões modernos como HITL e agentes.
+				</aside>
+			</section>
+
+			<!-- Slide 15: Serverless Workflow Specification -->
+			<section>
+				<h2>Serverless Workflow Specification</h2>
+				<ul style="font-size: 0.85em">
+					<li class="fragment">Projeto CNCF Sandbox (candidatando-se à incubação este ano)</li>
+					<li class="fragment">Ecossistema neutro em relação a fornecedores (vendor-neutral)</li>
+					<li class="fragment">Integração fluida com arquiteturas modernas</li>
+					<li class="fragment">
+						Padrões suportados: CloudEvents, AsyncAPI, gRPC, OpenAPI, A2A, MCP e outros
+					</li>
+				</ul>
+				<aside class="notes">
+					Baseado na especificação Serverless Workflow da CNCF, que é vendor-neutral e suporta diversos
+					padrões modernos.
+				</aside>
+			</section>
+
+			<!-- Slide 16: Code Example - Java DSL -->
+			<section>
+				<h2 data-id="code-title">Java DSL</h2>
+
+				<pre><code class="java" data-trim data-line-numbers="|1-2|3-11">
+@ApplicationScoped
+public class EmitFlow extends Flow {
+  @Override
+  public Workflow descriptor() {
+    return workflow("emit", "test")
+      .tasks(
+        emit("com.petstore.order.placed.v1")
+          .source("https://petstore.com")
+          .jsonData(Order.class))
+      .build();
+  }
+}
+						</code></pre>
+				<aside class="notes">
+					Exemplo de definição de workflow usando Java DSL. Esta é uma forma programática de definir workflows
+					seguindo a especificação Serverless Workflow.
+				</aside>
+			</section>
+
+			<!-- Slide 16b: Code Example - YAML Definition -->
+			<section>
+				<h2>YAML Definition</h2>
+				<pre>
+							<code class="yaml" data-trim data-line-numbers="|1-5|6|7|8-19">
+document:
+  dsl: '1.0.3'
+  namespace: test
+  name: emit
+  version: '0.1.0'
+  do:
+    - emitEvent:
+        emit:
+          event:
+            with:
+              source: https://petstore.com
+              type: com.petstore.order.placed.v1
+              data:
+                client:
+                  firstName: Cruella
+                  lastName: de Vil
+                items:
+                  - breed: dalmatian
+                    quantity: 101
+						</code>
+					</pre>
+			</section>
+
+			<!-- Slide 17: Architecture -->
+			<section>
+				<h2>Arquitetura e Ecossistema</h2>
+				<div class="architecture-diagram" style="font-size: 0.7em">
+
+					<div id="benefits"
+						style="text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+						<p><strong>Integração nativa com a infraestrutura Quarkus</strong></p>
+						<p><strong>Arquitetura plugável</strong></p>
+					</div>
+					<div
+						style="margin-top: 1rem; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto">
+						<div
+							style="text-align: center; background: rgba(255,255,255,0.15); padding: 0.5rem; margin: 0.3rem; border-radius: 5px">
+							<strong>Quarkus Flow</strong>
+						</div>
+						<div
+							style="text-align: center; background: rgba(255,255,255,0.1); padding: 0.5rem; margin: 0.3rem; border-radius: 5px">
+							<strong>Java SDK / DSL</strong> (Engine)
+						</div>
+						<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin: 0.3rem">
+							<div style="background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 5px">
+								<strong>Persistence</strong><br />Redis/JPA
+							</div>
+							<div style="background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 5px">
+								<strong>Messaging</strong><br />Any
+							</div>
+							<div style="background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 5px">
+								<strong>Smallrye Fault Tolerance</strong><br />
+							</div>
+						</div>
+						<div
+							style="background: rgba(255,255,255,0.2); padding: 0.5rem; margin: 0.3rem; border-radius: 5px">
+							<strong>Quarkus Infrastructure</strong> (Arc, HTTP, etc.)
+						</div>
+					</div>
+				</div>
+				<aside class="notes">
+					Arquitetura plugável que se integra nativamente com Quarkus. Você escolhe apenas os componentes que
+					precisa: persistência, mensageria, tolerância a falhas, etc.
+				</aside>
+			</section>
+
+			<!-- Slide 18: Demo 1 - Compensation Pattern -->
+			<section>
+				<h2>Demo: Compensation pattern</h2>
+				<div class="flow-diagram">
+					<ul style="font-size: 0.85em; text-align: left">
+						<li>Try/Catch utilizando o Java DSL</li>
+						<li>Utilizar catchWhen com ProblemDetails (RFC 7807)</li>
+						<li>then e utilização de diretivas</li>
+					</ul>
+					<div style="margin-top: 2rem; font-size: 0.8em">
+						<div style="display: flex; justify-content: center; align-items: center; gap: 1rem">
+							<span
+								style="background: rgba(76, 175, 80, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Stock</span>
+							<span>→</span>
+							<span
+								style="background: rgba(76, 175, 80, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Payment</span>
+							<span>→</span>
+							<span
+								style="background: rgba(76, 175, 80, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Shipping</span>
+						</div>
+						<div
+							style="margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem">
+							<span
+								style="background: rgba(244, 67, 54, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Cancel
+								Stock</span>
+							<span>←</span>
+							<span
+								style="background: rgba(244, 67, 54, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Cancel
+								Payment</span>
+						</div>
+					</div>
+				</div>
+				<aside class="notes">
+					Demo 1: Padrão de compensação usando try/catch com Java DSL. Mostra como lidar com falhas e
+					compensar ações já executadas.
+				</aside>
+			</section>
+
+			<!-- Slide 19: Demo 2 - Petstore OpenAPI -->
+			<section>
+				<h2>Demo: Petstore OpenAPI</h2>
+				<div class="flow-diagram">
+					<ul style="font-size: 0.85em; text-align: left">
+						<li>Consumir um documento OpenAPI</li>
+						<li>Executar uma de suas operações</li>
+						<li>Gerenciamento de estado</li>
+						<li>Encadeamento de chamadas HTTP através do mesmo documento OpenAPI</li>
+					</ul>
+					<div style="margin-top: 2rem; font-size: 0.8em">
+						<div
+							style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap">
+							<span
+								style="background: rgba(33, 150, 243, 0.3); padding: 0.5rem 1rem; border-radius: 5px">OpenAPI</span>
+							<span>→</span>
+							<span
+								style="background: rgba(33, 150, 243, 0.3); padding: 0.5rem 1rem; border-radius: 5px">findPetByStatus</span>
+							<span>→</span>
+							<span
+								style="background: rgba(33, 150, 243, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Pega
+								o ID</span>
+							<span>→</span>
+							<span
+								style="background: rgba(33, 150, 243, 0.3); padding: 0.5rem 1rem; border-radius: 5px">getPetById</span>
+							<span>→</span>
+							<span
+								style="background: rgba(76, 175, 80, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Mostra
+								o Pet</span>
+						</div>
+					</div>
+				</div>
+				<aside class="notes">
+					Demo 2: Consumindo uma API OpenAPI, executando operações e encadeando chamadas HTTP com
+					gerenciamento de estado.
+				</aside>
+			</section>
+
+			<!-- Slide 21a: Workflow vs Agents - Text Only -->
+			<section data-auto-animate>
+				<h2 data-id="langchain-title">Integração com Langchain4J</h2>
+				<div class="two-columns" style="font-size: 0.85em; margin-top: 2rem;">
+					<div>
+						<h3>Workflow</h3>
+						<p>Agents são programaticamente orquestrados através de um caminho predefinido</p>
+					</div>
+					<div>
+						<h3>Agents</h3>
+						<p>Agents direcionam dinamicamente sua própria ordem de invocação e têm controle sobre como
+							executam as tarefas</p>
+					</div>
+				</div>
+				<aside class="notes">
+					Diferença entre workflows (orquestração predefinida) e agents (decisão dinâmica).
+				</aside>
+			</section>
+
+			<!-- Slide 21b: Workflow Diagram -->
+			<section data-auto-animate>
+				<h2 data-id="langchain-title" style="font-size: 1.3em; margin-bottom: 0.3rem;">Workflow</h2>
+				<p style="font-size: 0.7em; margin-bottom: 0.5rem;">Agents são programaticamente orquestrados através de
+					um caminho predefinido</p>
+				<div
+					style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; max-width: 600px; margin: 0 auto; transform: scale(0.75); transform-origin: top center;">
+					<!-- Input -->
+					<div
+						style="background: rgba(76, 175, 80, 0.3); padding: 0.3rem 1rem; border-radius: 5px; border: 2px solid rgba(76, 175, 80, 0.6); font-size: 0.8em;">
+						<strong>in</strong>
+					</div>
+
+					<!-- Arrow to Orchestrator -->
+					<div style="font-size: 1.2em; color: rgba(255, 255, 255, 0.5); line-height: 0.8;">↓</div>
+
+					<!-- Orchestrator -->
+					<div
+						style="background: rgba(33, 150, 243, 0.3); padding: 0.3rem 1rem; border-radius: 5px; border: 2px solid rgba(33, 150, 243, 0.6); font-size: 0.8em;">
+						<strong>Orquestrador</strong>
+					</div>
+
+					<!-- Branching arrows -->
+					<div
+						style="display: flex; justify-content: center; align-items: flex-start; width: 100%; position: relative; height: 35px;">
+						<svg width="100%" height="35" style="position: absolute; top: 0; left: 0;">
+							<!-- Left arrow -->
+							<line x1="50%" y1="0" x2="20%" y2="35" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+
+							<!-- Center arrow -->
+							<line x1="50%" y1="0" x2="50%" y2="35" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+
+							<!-- Right arrow -->
+							<line x1="50%" y1="0" x2="80%" y2="35" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+
+						</svg>
+					</div>
+
+					<!-- Parallel Tasks -->
+					<div style="display: flex; gap: 0.8rem; justify-content: center; width: 100%;">
+						<div
+							style="background: rgba(156, 39, 176, 0.3); padding: 0.3rem 0.8rem; border-radius: 5px; border: 2px solid rgba(156, 39, 176, 0.6); font-size: 0.75em;">
+							<strong>@Agent</strong>
+						</div>
+						<div
+							style="background: rgba(156, 39, 176, 0.3); padding: 0.3rem 0.8rem; border-radius: 5px; border: 2px solid rgba(156, 39, 176, 0.6); font-size: 0.75em;">
+							<strong>@Agent</strong>
+						</div>
+						<div
+							style="background: rgba(156, 39, 176, 0.3); padding: 0.3rem 0.8rem; border-radius: 5px; border: 2px solid rgba(156, 39, 176, 0.6); font-size: 0.75em;">
+							<strong>@Agent</strong>
+						</div>
+					</div>
+
+					<!-- Converging arrows -->
+					<div
+						style="display: flex; justify-content: center; align-items: flex-start; width: 100%; position: relative; height: 35px;">
+						<svg width="100%" height="35" style="position: absolute; top: 0; left: 0;">
+							<line x1="20%" y1="0" x2="50%" y2="35" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<line x1="50%" y1="0" x2="50%" y2="35" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<line x1="80%" y1="0" x2="50%" y2="35" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<polygon points="50%,35 calc(50% - 3),30 calc(50% + 3),30"
+								fill="rgba(255, 255, 255, 0.5)" />
+						</svg>
+					</div>
+
+					<!-- Aggregator -->
+					<div
+						style="background: rgba(255, 152, 0, 0.3); padding: 0.3rem 1rem; border-radius: 5px; border: 2px solid rgba(255, 152, 0, 0.6); font-size: 0.8em;">
+						<strong>@Output</strong>
+					</div>
+
+					<!-- Arrow to Output -->
+					<div style="font-size: 1.2em; color: rgba(255, 255, 255, 0.5); line-height: 0.8;">↓</div>
+
+					<!-- Output -->
+					<div
+						style="background: rgba(76, 175, 80, 0.3); padding: 0.3rem 1rem; border-radius: 5px; border: 2px solid rgba(76, 175, 80, 0.6); font-size: 0.8em;">
+						<strong>out</strong>
+					</div>
+				</div>
+				<aside class="notes">
+					Diagrama visual do Workflow: Input → Orquestrador → (Tarefa 1, Tarefa 2, Tarefa 3 em paralelo) →
+					Agregador → Output.
+				</aside>
+			</section>
+
+
+
+			<!-- Slide 21c: Agents Diagram -->
+			<section data-auto-animate>
+				<h2 data-id="langchain-title" style="font-size: 1.3em; margin-bottom: 0.3rem;">Agents</h2>
+				<p style="font-size: 0.7em; margin-bottom: 0.5rem;">Agents direcionam dinamicamente sua própria ordem
+					de invocação</p>
+				<div
+					style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; max-width: 600px; margin: 0 auto; transform: scale(0.8); transform-origin: top center;">
+
+					<!-- Orchestrator -->
+					<div
+						style="background: rgba(33, 150, 243, 0.3); padding: 0.4rem 1.2rem; border-radius: 5px; border: 2px solid rgba(33, 150, 243, 0.6); font-size: 0.85em;">
+						<strong>Orquestrador</strong>
+					</div>
+
+					<!-- Bidirectional arrows down -->
+					<div
+						style="display: flex; justify-content: center; align-items: flex-start; width: 100%; position: relative; height: 40px;">
+						<svg width="100%" height="40" style="position: absolute; top: 0; left: 0;">
+							<!-- Left arrow down -->
+							<line x1="50%" y1="0" x2="20%" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<polygon points="calc(20% - 3),40 calc(20% + 3),40 20%,45"
+								fill="rgba(255, 255, 255, 0.5)" />
+
+							<!-- Center arrow down -->
+							<line x1="50%" y1="0" x2="50%" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<polygon points="calc(50% - 3),40 calc(50% + 3),40 50%,45"
+								fill="rgba(255, 255, 255, 0.5)" />
+
+							<!-- Right arrow down -->
+							<line x1="50%" y1="0" x2="80%" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<polygon points="calc(80% - 3),40 calc(80% + 3),40 80%,45"
+								fill="rgba(255, 255, 255, 0.5)" />
+						</svg>
+					</div>
+
+					<!-- Agents/Tools row -->
+					<div style="display: flex; gap: 1rem; justify-content: center; width: 100%;">
+						<div
+							style="background: rgba(156, 39, 176, 0.3); padding: 0.4rem 0.8rem; border-radius: 5px; border: 2px solid rgba(156, 39, 176, 0.6); font-size: 0.75em; text-align: center;">
+							<strong>@Agent</strong>
+						</div>
+						<div
+							style="background: rgba(76, 175, 80, 0.3); padding: 0.4rem 0.8rem; border-radius: 5px; border: 2px solid rgba(76, 175, 80, 0.6); font-size: 0.75em; text-align: center;">
+							<strong>@Tool</strong>
+						</div>
+						<div
+							style="background: rgba(156, 39, 176, 0.3); padding: 0.4rem 0.8rem; border-radius: 5px; border: 2px solid rgba(156, 39, 176, 0.6); font-size: 0.75em; text-align: center;">
+							<strong>@Agent</strong>
+						</div>
+					</div>
+
+					<!-- Bidirectional arrows up -->
+					<div
+						style="display: flex; justify-content: center; align-items: flex-start; width: 100%; position: relative; height: 40px;">
+						<svg width="100%" height="40" style="position: absolute; top: 0; left: 0;">
+							<!-- Left arrow up -->
+							<line x1="20%" y1="0" x2="50%" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<polygon points="calc(50% - 3),40 calc(50% + 3),40 50%,45"
+								fill="rgba(255, 255, 255, 0.5)" />
+
+							<!-- Center arrow up -->
+							<line x1="50%" y1="0" x2="50%" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<polygon points="calc(50% - 3),40 calc(50% + 3),40 50%,45"
+								fill="rgba(255, 255, 255, 0.5)" />
+
+							<!-- Right arrow up -->
+							<line x1="80%" y1="0" x2="50%" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
+							<polygon points="calc(50% - 3),40 calc(50% + 3),40 50%,45"
+								fill="rgba(255, 255, 255, 0.5)" />
+						</svg>
+					</div>
+
+					<div
+						style="background: rgba(255, 152, 0, 0.2); padding: 0.4rem 1rem; border-radius: 5px; border: 1px dashed rgba(255, 152, 0, 0.5); font-size: 0.7em; text-align: center; margin-top: 0.5rem;">
+						<em>Decisão dinâmica sobre próxima ação</em>
+					</div>
+				</div>
+				<aside class="notes">
+					Diagrama de Agents: o Agent Orchestrator interage dinamicamente com agents que usam tools.
+				</aside>
+			</section>
+
+			<!-- Slide 22: Agent Types -->
+			<section>
+				<h2>Tipos de Agents Workflows</h2>
+				<ul style="font-size: 0.75em; text-align: left">
+					<li class="fragment">
+						<span class="agent-type">@SequenceAgent</span> permite você executar agentes de forma sequencial
+					</li>
+					<li class="fragment">
+						<span class="agent-type">@ParallelAgent</span> permite você executar diversos agentes ao mesmo
+						tempo
+					</li>
+					<li class="fragment">
+						<span class="agent-type">@LoopAgent</span> como um for-loop no Java, permite você executar
+						agentes até uma dada condição for satisfeita
+					</li>
+					<li class="fragment">
+						<span class="agent-type">@ConditionalAgent</span> permite você dado uma condição utilizar ou não
+						um agente
+					</li>
+					<li class="fragment">
+						<span class="agent-type">@HumanInTheLoop</span> permite de forma programática pegar um input ou
+						feedback de um humano
+					</li>
+					<li class="fragment">
+						<span class="agent-type">Non-AI agents</span> permite com que você escreva código para performar
+						alguma tarefa
+					</li>
+				</ul>
+				<aside class="notes">
+					Diferentes tipos de agents disponíveis: sequencial, paralelo, loop, condicional, human-in-the-loop e
+					non-AI agents.
+				</aside>
+			</section>
+
+			<!-- Slide 20: Demo 3 - Agentic Workflows -->
+			<section>
+				<h2>Demo: Agentic Workflows com LangChain4j</h2>
+				<div class="flow-diagram">
+					<ul style="font-size: 0.85em; text-align: left">
+						<li>Gerador de newsletter (LangChain4j)</li>
+						<li>Workflow engine orquestrando chamadas para LLM</li>
+						<li>Human-in-the-loop (HITL)</li>
+						<li>Durable workflows</li>
+						<li>Observabilidade</li>
+					</ul>
+					<div style="margin-top: 2rem; font-size: 0.8em">
+						<div
+							style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap">
+							<span
+								style="background: rgba(156, 39, 176, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Trigger</span>
+							<span>→</span>
+							<span
+								style="background: rgba(156, 39, 176, 0.3); padding: 0.5rem 1rem; border-radius: 5px">LLM
+								Drafts</span>
+							<span>→</span>
+							<span
+								style="background: rgba(255, 152, 0, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Wait
+								for Human</span>
+							<span>→</span>
+							<span
+								style="background: rgba(76, 175, 80, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Approve</span>
+							<span>→</span>
+							<span
+								style="background: rgba(76, 175, 80, 0.3); padding: 0.5rem 1rem; border-radius: 5px">Send</span>
+						</div>
+					</div>
+				</div>
+				<aside class="notes">
+					Demo 3: Workflow agentic com LangChain4j, incluindo geração de newsletter com LLM, aprovação humana
+					e observabilidade completa.
+				</aside>
+			</section>
+
+			<!-- Slide 23: Call to Action -->
+			<section>
+				<h2>Experimente!</h2>
+				<ul style="font-size: 0.9em">
+					<li><a target="_blank" href="https://docs.quarkiverse.io/quarkus-flow/dev/index.html">Quarkus Flow
+							Documentation</a></li>
+					<li><a target="_blank" href="https://github.com/quarkiverse/quarkus-flow">Quarkus Flow GitHub</a>
+					</li>
+					<li><a target="_blank" href="https://docs.quarkiverse.io/quarkus-flow/dev/wk-index.html">Quarkus
+							Flow Workshop</a></li>
+					<li><a target="_blank"
+							href="https://github.com/quarkiverse/quarkus-flow/tree/main/examples">Demos</a></li>
+					<li><a target="_blank" href="https://serverlessworkflow.io">Serverless Workflow Specification</a>
+					</li>
+				</ul>
+				<aside class="notes">
+					Links para recursos: GitHub, documentação, workshop, demos e especificação Serverless Workflow.
+				</aside>
+			</section>
+
+			<!-- Slide 24: Speaker Bio -->
+			<section>
+				<h2>Matheus Cruz</h2>
+				<ul style="font-size: 0.9em">
+					<li>Software Engineer na IBM</li>
+					<li>Quarkus Flow contributor</li>
+					<li>CNCF Serverless Workflow Specification (SDK Java) contributor</li>
+					<li>Quarkus Club Coordinator</li>
+				</ul>
+				<aside class="notes">
+					Informações sobre o palestrante: Matheus Cruz, engenheiro de software na IBM e contribuidor do
+					Quarkus Flow e da especificação Serverless Workflow.
+				</aside>
+			</section>
+
+			<!-- Slide 25: Raffle -->
+			<section data-background-gradient="linear-gradient(to bottom, #16213e, #1a1a2e)">
+				<h1 style="font-size: 3em">🎉</h1>
+				<h2>Sorteio</h2>
+				<p style="font-size: 1.2em; margin-top: 2rem">
+					Deixe um star para participar do sorteio
+				</p>
+				<aside class="notes">
+					Encerramento com sorteio. Incentive a audiência a dar star no repositório do GitHub para participar.
+				</aside>
+			</section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="dist/plugin/zoom.js"></script>
+	<script src="dist/plugin/notes.js"></script>
+	<script src="dist/plugin/search.js"></script>
+	<script src="dist/plugin/markdown.js"></script>
+	<script src="dist/plugin/highlight.js"></script>
+	<script>
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			center: true,
+			hash: true,
+			slideNumber: 'c/t',
+			showSlideNumber: 'all',
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight],
+		});
+	</script>
+</body>
+
+</html>
